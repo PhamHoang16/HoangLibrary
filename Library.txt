@@ -1,0 +1,6 @@
+id: 1, title: 1, publisher: 1, year: 1, artist: 1, isBorrow: false
+
+id: 2, title: cd, publisher: cd, year: 1, artist: cd, isBorrow: false
+
+id: 3, title: 3, publisher: 3, year: 3, author: 3, isBorrowed: false
+

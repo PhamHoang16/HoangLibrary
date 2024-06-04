@@ -1,12 +1,13 @@
 package console;
 
-import manage.Library;
+import items.Item;
+import manage.LibraryManager;
 
 import java.util.Scanner;
 
 public class Interact {
-    static Library library = new Library();
-    public static void welcome() throws InterruptedException {
+    static LibraryManager libraryManager = new LibraryManager();
+    public static void welcome() throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.println("        Welcome to Hoang Library");
         System.out.println("--------------------------------");
@@ -26,33 +27,47 @@ public class Interact {
             welcome();
         } else {
             System.out.println("Thank you for using Hoang Library");
+            libraryManager.shutdownExecutor();
         }
+
     }
-    public static void interact() {
+    public static void interact() throws Exception {
+        int activeCount = Thread.activeCount();
+        System.out.println("Number of active threads: " + activeCount);
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
         switch (option) {
             case 1:
-                library.addItem();
+                Item item = libraryManager.enterItem();
+                libraryManager.addItem(item);
                 break;
             case 2:
+                System.out.println("Please enter the item id you want to remove");
+                String id = scanner.next();
+                libraryManager.removeItem(id);
                 break;
             case 3:
+                System.out.println("Please enter the item details you want to update");
+                String id2 = scanner.next();
+                libraryManager.updateItem(id2);
                 break;
             case 4:
                 System.out.println("Please enter the name of the item you want to search");
                 String keyword = scanner.next();
-                library.searchItem(keyword);
+                libraryManager.searchItem(keyword);
                 break;
             case 5:
-                library.listAllItems();
+                libraryManager.listAllItems();
                 break;
             case 6:
                 System.out.println("Please enter the id of the item you want to borrow");
-                String id = scanner.next();
-                library.borrowItem(id);
+                String id1 = scanner.next();
+                libraryManager.borrowItem(id1);
                 break;
             case 7:
+                System.out.println("Please enter the id of the item you want to return");
+                String id3 = scanner.next();
+                libraryManager.returnItem(id3);
                 break;
 
         }

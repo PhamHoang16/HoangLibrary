@@ -1,5 +1,8 @@
 package items;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class Item implements Comparable<Item>{
     private String id;
     private String title;
@@ -67,5 +70,46 @@ public class Item implements Comparable<Item>{
     public int compareTo(Item otherItem) {
         if (this.id == otherItem.getId()) return 0;
         return 1;
+    }
+
+    public void enterDetail() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter id");
+        String id = scanner.next();
+        scanner.nextLine();
+        setId(id);
+
+        System.out.println("Enter title");
+        String title = scanner.nextLine();
+        setTitle(title);
+        System.out.println("Enter publisher");
+        String publisher = scanner.nextLine();
+        setPublisher(publisher);
+        System.out.println("Enter book's year");
+        int year = 0;
+        try {
+            year = scanner.nextInt();
+            setYear(year);
+        } catch (InputMismatchException e) {
+            int attempts = 3;
+
+            while (attempts > 0) {
+                System.err.println("Invalid input for year. Please enter a valid integer. You have " + attempts + " attempts left.");
+                scanner.next();
+                System.out.println("Enter year: ");
+
+                try {
+                    year = scanner.nextInt();
+                    setYear(year);
+                    break;
+                } catch (InputMismatchException ex) {
+                    attempts--;
+                }
+            }
+            if (attempts == 0) {
+                System.err.println("Error: Maximum attempts exceeded. Exiting.");
+                return;
+            }
+        }
     }
 }

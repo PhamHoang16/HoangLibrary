@@ -1,6 +1,8 @@
-id: 1, title: 1, publisher: 1, year: 1, artist: 1, isBorrow: false
+id: 1, title: Ironman, publisher: marvel, year: 2020, author: stan, isBorrowed: false
 
-id: 2, title: cd, publisher: cd, year: 1, artist: cd, isBorrow: false
+id: 2, title: thor, publisher: marvel, year: 2021, author: stan, isBorrowed: false
 
-id: 3, title: 3, publisher: 3, year: 3, author: 3, isBorrowed: false
+id: 3, title: batman, publisher: dc, year: 2025, author: dc, isBorrowed: false
+
+id: 11, title: 1, publisher: 1, year: 1, author: 1, isBorrowed: false
 

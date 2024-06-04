@@ -1,5 +1,7 @@
 package items;
 
+import java.util.Scanner;
+
 public class Book extends Item {
     private String author;
 
@@ -24,5 +26,14 @@ public class Book extends Item {
     public String toString() {
         return "id: " + this.getId() + ", title: " + this.getTitle() + ", publisher: "
                 + this.getPublisher() + ", year: " + this.getYear() + ", author: " + this.getAuthor() + ", isBorrowed: " + this.getStatus();
+    }
+
+    @Override
+    public void enterDetail() {
+        Scanner scanner = new Scanner(System.in);
+        super.enterDetail();
+        System.out.println("Enter author: ");
+        String author = scanner.nextLine();
+        setAuthor(author);
     }
 }

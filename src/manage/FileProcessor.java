@@ -14,26 +14,43 @@ import items.Item;
 
 public class FileProcessor<T extends Item> {
     static final String FILE_NAME = "Library.txt";
+    private static final String BOOK_FILE_NAME = "book.txt";
+    private static final String CD_FILE_NAME = "cd.txt";
+
     private final ExecutorService executor = Executors.newFixedThreadPool(2);
-    public void loadItemsFromFile(List<T> itemList) {
+    public void loadItemsFromFile(List<Item> itemList) {
         executor.submit(() -> {
-            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    Item item = parseItemFromLine(line);
-                    if (item != null) {
-                        itemList.add((T) item);
+            synchronized (itemList) {
+                try (BufferedReader bookReader = new BufferedReader(new FileReader(BOOK_FILE_NAME));
+                     BufferedReader cdReader = new BufferedReader(new FileReader(CD_FILE_NAME))) {
+
+                    String line;
+                    // Đọc dữ liệu từ file book.txt
+                    while ((line = bookReader.readLine()) != null) {
+                        Item item = parseItemFromLine(line);
+                        if (item != null) {
+                            itemList.add(item);
+                        }
                     }
+
+                    // Đọc dữ liệu từ file cd.txt
+                    while ((line = cdReader.readLine()) != null) {
+                        Item item = parseItemFromLine(line);
+                        if (item != null) {
+                            itemList.add(item);
+                        }
+                    }
+                } catch (IOException e) {
+                    System.err.println("Error loading items from file: " + e.getMessage());
                 }
-            } catch (IOException e) {
-                System.err.println("Error loading items from file: " + e.getMessage());
             }
         });
     }
 
-    public void saveItemToFile(Item item){
+    public void saveItemToFile(Item item) {
         executor.submit(() -> {
-            try (FileWriter fileWriter = new FileWriter(FILE_NAME, true);
+            String fileName = item instanceof Book ? BOOK_FILE_NAME : CD_FILE_NAME;
+            try (FileWriter fileWriter = new FileWriter(fileName, true);
                  BufferedWriter writer = new BufferedWriter(fileWriter)) {
 
                 writer.write(item.toString());
@@ -47,17 +64,28 @@ public class FileProcessor<T extends Item> {
         });
     }
 
-    public void updateFile(List<T> itemList) {
+    public void updateFile(List<Item> itemList) {
         executor.submit(() -> {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
-                for (T item : itemList) {
-                    writer.write(item.toString());
-                    writer.newLine();
-                    writer.newLine();
+            synchronized (itemList) {
+                try (BufferedWriter bookWriter = new BufferedWriter(new FileWriter(BOOK_FILE_NAME));
+                     BufferedWriter cdWriter = new BufferedWriter(new FileWriter(CD_FILE_NAME))) {
+
+                    for (Item item : itemList) {
+                        if (item instanceof Book) {
+                            bookWriter.write(item.toString());
+                            bookWriter.newLine();
+                            bookWriter.newLine();
+                        } else if (item instanceof CD) {
+                            cdWriter.write(item.toString());
+                            cdWriter.newLine();
+                            cdWriter.newLine();
+                        }
+                    }
+
+                    System.out.println("Files updated successfully!");
+                } catch (IOException e) {
+                    System.err.println("Error updating files: " + e.getMessage());
                 }
-                System.out.println("File updated successfully!");
-            } catch (IOException e) {
-                System.err.println("Error updating file: " + e.getMessage());
             }
         });
     }
@@ -134,6 +162,6 @@ public class FileProcessor<T extends Item> {
         return null;
     }
     public void shutdownExecutor() {
-            executor.shutdownNow();
+        executor.shutdownNow();
     }
 }

@@ -1,0 +1,4 @@
+id: 1, title: sach1, publisher: hoang, year: 2020, author: hoang, isBorrowed: false
+
+id: 2, title: sach2, publisher: marvel, year: 2020, author: stan, isBorrowed: false
+

@@ -33,8 +33,8 @@ public class Interact {
     }
 
     public static void interact() throws Exception {
-        int activeCount = Thread.activeCount();
-        System.out.println("Number of active threads: " + activeCount);
+//        int activeCount = Thread.activeCount();
+//        System.out.println("Number of active threads: " + activeCount);
         Scanner scanner = new Scanner(System.in);
         int option = 5;
         try {

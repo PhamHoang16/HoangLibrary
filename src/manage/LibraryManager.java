@@ -18,8 +18,8 @@ public class LibraryManager<T extends Item> implements Library {
         fileProcessor.loadItemsFromFile(itemList);
     }
     public T enterItem() {
-        int activeCount = Thread.activeCount();
-        System.out.println("Number of active threads: " + activeCount);
+//        int activeCount = Thread.activeCount();
+//        System.out.println("Number of active threads: " + activeCount);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Add your new item");
         System.out.println("Select type of item");

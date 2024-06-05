@@ -1,12 +1,10 @@
 id: 1, title: Ironman, publisher: marvel, year: 2020, author: stan, isBorrowed: false
 
-id: 354, title: 5trg, publisher: rtyt, year: 46, author: erg, isBorrowed: false
-
-id: 342, title: uykjh, publisher: sdffg, year: 45, artist: fdvc, isBorrow: false
-
 id: 11, title: 1, publisher: 1, year: 1, author: 1, isBorrowed: false
 
 id: 56, title: 56, publisher: 56, year: 4, author: 65, isBorrowed: false
 
 id: 65, title: hoang, publisher: hoang, year: 3, artist: hoang, isBorrow: false
+
+id: 67, title: spiderman, publisher: marvel, year: 2020, author: stan, isBorrowed: false
 

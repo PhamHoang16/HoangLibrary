@@ -10,9 +10,7 @@ public class CD extends Item {
         this.artist = artist;
     }
 
-    public CD() {
-
-    }
+    public CD() {}
 
     public String getArtist() {
         return artist;

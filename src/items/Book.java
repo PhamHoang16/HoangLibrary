@@ -10,9 +10,7 @@ public class Book extends Item {
         this.author = author;
     }
 
-    public Book() {
-
-    }
+    public Book() {}
 
     public String getAuthor() {
         return author;

@@ -1,8 +1,9 @@
-package console;
+package interact;
 
 import items.Item;
 import manage.LibraryManager;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Interact {
@@ -29,13 +30,18 @@ public class Interact {
             System.out.println("Thank you for using Hoang Library");
             libraryManager.shutdownExecutor();
         }
-
     }
+
     public static void interact() throws Exception {
         int activeCount = Thread.activeCount();
         System.out.println("Number of active threads: " + activeCount);
         Scanner scanner = new Scanner(System.in);
-        int option = scanner.nextInt();
+        int option = 5;
+        try {
+            option = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Enter option with interger value");
+        }
         switch (option) {
             case 1:
                 Item item = libraryManager.enterItem();
@@ -69,7 +75,6 @@ public class Interact {
                 String id3 = scanner.next();
                 libraryManager.returnItem(id3);
                 break;
-
         }
     }
 }

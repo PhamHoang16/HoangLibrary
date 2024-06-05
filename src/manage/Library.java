@@ -1,22 +1,14 @@
 package manage;
-
-import exception.ItemIDAreadyExistsException;
-import exception.ItemNotFoundException;
 import items.Item;
 
 public interface Library<T extends Item> {
     T enterItem();
-    void addItem(T item) throws ItemIDAreadyExistsException;
+    void addItem(T item);
     boolean checkID(String id);
-    void saveItemToFile(T item);
-    void removeItem(String id) throws ItemNotFoundException;
-    void updateFile();
-    void updateItem(String id) throws ItemNotFoundException;
-    void searchItem(String keywords) throws ItemNotFoundException;
-    void borrowItem(String id) throws Exception;
+    void removeItem(String id);
+    void updateItem(String id);
+    void searchItem(String keywords);
+    void borrowItem(String id);
     void listAllItems();
-    void returnItem(String id) throws Exception;
-    void loadItemsFromFile();
-    Item parseItemFromLine(String line);
-
+    void returnItem(String id);
 }
